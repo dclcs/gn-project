@@ -1,5 +1,11 @@
 # ninja log v6
-1	51	7541640982154851	obj/test/earthrise_updater/earthrise_update.obj	8180dc7912dc4b4f
-7	312	7541640982216057	obj/test/hello_world/hello_world.obj	dc3673bb7245a61c
-315	374	7541640985302881	hello_world.exe	5480da3d4d8b8864
-315	374	7541640985302881	hello_world.exe.pdb	5480da3d4d8b8864
+1	52	7541658738489183	obj/test/earthrise_updater/earthrise_update.obj	8180dc7912dc4b4f
+7	320	7541658738550152	obj/test/hello_world/hello_world.obj	dc3673bb7245a61c
+323	383	7541658741709464	hello_world.exe	5480da3d4d8b8864
+323	383	7541658741709464	hello_world.exe.pdb	5480da3d4d8b8864
+1	302	7541659365875967	obj/test/hello_world/hello_world.obj	dc3673bb7245a61c
+306	366	7541659368930351	hello_world.exe	5480da3d4d8b8864
+306	366	7541659368930351	hello_world.exe.pdb	5480da3d4d8b8864
+1	56	7541660312327118	obj/test/earthrise_updater/earthrise_update.obj	8180dc7912dc4b4f
+57	125	7541660312890749	hello_world.exe	5480da3d4d8b8864
+57	125	7541660312890749	hello_world.exe.pdb	5480da3d4d8b8864

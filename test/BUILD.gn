@@ -1,8 +1,8 @@
 
-copy("copy_winsparkle_dll") {
-  sources = [ "earthrise/winsparkle/lib/x64/WinSparkle.dll" ]
-  outputs = [ "$root_out_dir/WinSparkle.dll" ]
-}
+# copy("copy_winsparkle_dll") {
+#   sources = [ "earthrise/winsparkle/lib/x64/WinSparkle.dll" ]
+#   outputs = [ "$root_out_dir/WinSparkle.dll" ]
+# }
 
 source_set("earthrise_updater") {
 
@@ -25,7 +25,8 @@ source_set("earthrise_updater") {
 
 executable("hello_world") {
     sources = [
-        "hello_world.cc"
+        "hello_world.cc",
+        "resource.h"
     ]
 
     deps = [":earthrise_updater"]
