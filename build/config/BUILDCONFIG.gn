@@ -1,0 +1,2 @@
+_default_toolchain = "//build/toolchains/win:x64"
+set_default_toolchain("//build/toolchains/win:x64")

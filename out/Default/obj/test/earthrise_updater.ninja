@@ -1,0 +1,9 @@
+label_name = earthrise_updater
+target_out_dir = obj/test
+target_output_name = earthrise_updater
+
+build obj/test/earthrise_updater/earthrise_update.obj: cxx ../../test/earthrise/earthrise_update.cc
+  source_file_part = earthrise_update.cc
+  source_name_part = earthrise_update
+
+build phony/test/earthrise_updater: phony obj/test/earthrise_updater/earthrise_update.obj

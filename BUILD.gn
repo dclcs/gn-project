@@ -1,0 +1,6 @@
+
+group("root") {
+    deps = [
+        "//test:hello_world"
+    ]
+}

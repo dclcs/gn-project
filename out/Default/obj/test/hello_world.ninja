@@ -1,0 +1,15 @@
+label_name = hello_world
+target_out_dir = obj/test
+target_output_name = hello_world
+
+build obj/test/hello_world/hello_world.obj: cxx ../../test/hello_world.cc
+  source_file_part = hello_world.cc
+  source_name_part = hello_world
+
+build ./hello_world.exe ./hello_world.exe.pdb: link obj/test/hello_world/hello_world.obj obj/test/earthrise_updater/earthrise_update.obj | ../../test/earthrise/winsparkle/lib/x64/WinSparkle.lib || phony/test/earthrise_updater
+  ldflags = /SUBSYSTEM$:WINDOWS /ENTRY$:wWinMainCRTStartup -L../../test/earthrise/winsparkle/lib
+  libs = ../../test/earthrise/winsparkle/lib/x64/WinSparkle.lib
+  frameworks =
+  swiftmodules =
+  output_extension = .exe
+  output_dir = .

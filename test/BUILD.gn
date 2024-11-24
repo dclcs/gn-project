@@ -1,0 +1,36 @@
+
+copy("copy_winsparkle_dll") {
+  sources = [ "earthrise/winsparkle/lib/x64/WinSparkle.dll" ]
+  outputs = [ "$root_out_dir/WinSparkle.dll" ]
+}
+
+source_set("earthrise_updater") {
+
+    sources = [
+        "earthrise/earthrise_update.cc",
+        "earthrise/earthrise_update.h"
+    ]
+
+     # 使用 rebase_path 确保路径正确
+    libs = [ rebase_path("earthrise/winsparkle/lib/x64/WinSparkle.lib") ]
+
+  # 添加 DLL 作为数据依赖
+    data = [ "earthrise/winsparkle/lib/x64/WinSparkle.dll" ]
+
+  # 添加库搜索路径
+    lib_dirs = [ "earthrise/winsparkle/lib" ]    
+
+}
+
+
+executable("hello_world") {
+    sources = [
+        "hello_world.cc"
+    ]
+
+    deps = [":earthrise_updater"]
+
+    ldflags = [ "/SUBSYSTEM:WINDOWS" , "/ENTRY:wWinMainCRTStartup"]
+}
+
+

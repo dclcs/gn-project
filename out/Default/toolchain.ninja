@@ -1,0 +1,22 @@
+rule cc
+  command = C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe /c ${in} /nologo  /showIncludes /Fo${out} /Fd"${target_out_dir}/${label_name}_c.pdb"
+  description = CC ${out}
+  deps = msvc
+rule cxx
+  command = C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe /c ${in} /nologo /showIncludes /Fo${out} /Fd"${target_out_dir}/${label_name}_c.pdb"
+  description = CXX ${out}
+  deps = msvc
+rule alink
+  command = C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe "/OUT:${out}" /nologo ${arflags} "@${out}.rsp"
+  description = LIB ${out}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in_newline}
+rule link
+  command = C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe "/OUT:${output_dir}/${target_output_name}${output_extension}" /nologo  "@${output_dir}/${target_output_name}${output_extension}.rsp"
+  description = LINK ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in_newline} ${libs} ${solibs} ${ldflags} ${rlibs}
+
+build phony/root: phony ./hello_world.exe
+subninja obj/test/earthrise_updater.ninja
+subninja obj/test/hello_world.ninja

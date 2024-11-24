@@ -1,0 +1,78 @@
+# import("//build/toolchains/win/win_toolchains_data.gni")
+
+# import("//build/toolchains/win/toolchains.gni")
+
+# win_toolchains("x64") {
+#     toolchain_arch = "x64"
+# }
+
+
+toolchain("x64") {
+    object_subdir = "{{target_out_dir}}/{{label_name}}"
+    local_cl_exe_ = "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/cl.exe"
+    local_link_exe_ = "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64/link.exe"
+    show_includes = "/showIncludes"
+    
+    tool("cc") {
+        precompiled_header_type = "msvc"
+        pdbname = "{{target_out_dir}}/{{label_name}}_c.pdb"
+        depsformat = "msvc"
+        description = "CC {{output}}"
+        outputs = [ "$object_subdir/{{source_name_part}}.obj" ]
+        command = "$local_cl_exe_ /c {{source}} /nologo  $show_includes /Fo{{output}} /Fd\"$pdbname\""
+
+    }
+
+
+    tool("cxx") {
+        precompiled_header_type = "msvc"
+        pdbname = "{{target_out_dir}}/{{label_name}}_c.pdb"
+        depsformat = "msvc"
+        description = "CXX {{output}}"
+        outputs = [ "$object_subdir/{{source_name_part}}.obj" ]
+        command = "$local_cl_exe_ /c {{source}} /nologo $show_includes /Fo{{output}} /Fd\"$pdbname\""
+
+    }
+
+    tool("link") {
+      exename = "{{output_dir}}/{{target_output_name}}{{output_extension}}"
+      pdbname = "$exename.pdb"
+      rspfile = "$exename.rsp"
+    #   pool = "//build/toolchain:link_pool($default_toolchain)"
+
+      command = "$local_link_exe_ \"/OUT:$exename\" /nologo  \"@$rspfile\""
+
+      default_output_extension = ".exe"
+      default_output_dir = "{{root_out_dir}}"
+      description = "LINK {{output}}"
+      outputs = [
+        exename,
+        pdbname,
+      ]
+      runtime_outputs = outputs
+
+      # The use of inputs_newline is to work around a fixed per-line buffer
+      # size in the linker.
+      rspfile_content =
+          "{{inputs_newline}} {{libs}} {{solibs}} {{ldflags}} {{rlibs}}"
+    }
+
+     tool("alink") {
+      rspfile = "{{output}}.rsp"
+      command = "$local_link_exe_ \"/OUT:{{output}}\" /nologo {{arflags}} \"@$rspfile\""
+      description = "LIB {{output}}"
+      outputs = [
+        # Ignore {{output_extension}} and always use .lib, there's no reason to
+        # allow targets to override this extension on Windows.
+        "{{output_dir}}/{{target_output_name}}.lib",
+      ]
+      default_output_extension = ".lib"
+      default_output_dir = "{{target_out_dir}}"
+
+      # The use of inputs_newline is to work around a fixed per-line buffer
+      # size in the linker.
+      rspfile_content = "{{inputs_newline}}"
+    }
+
+    
+}
